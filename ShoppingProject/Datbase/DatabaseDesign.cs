@@ -12,6 +12,7 @@ namespace ShoppingProject.Datbase
 
         public DbSet<UserAccountModels> UserAccounts { get; set; }
         public DbSet<CategoriesModels> CategoriesModels { get; set; }
+        public DbSet<CategoriesImages> CategoriesImages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder mb)
         {
@@ -43,6 +44,17 @@ namespace ShoppingProject.Datbase
                 b.HasOne(f => f.ModifireUserAccout).WithMany().HasForeignKey(f => f.ModifierUserId).OnDelete(DeleteBehavior.Restrict).IsRequired(false);
                 b.HasOne(f => f.CreatorUserAccout).WithMany().HasForeignKey(f => f.CreatorUserId).OnDelete(DeleteBehavior.Restrict).IsRequired(true);
             });
+
+            mb.Entity<CategoriesImages>(b =>
+            {
+                b.ToTable(nameof(CategoriesImages));
+                b.HasKey(x => x.Id).HasAnnotation("SqlServer:Identity", "1, 1");
+                b.Property(x => x.ImageName).HasMaxLength(100).IsRequired(true);
+                b.Property(x => x.ImagePath).HasMaxLength(200).IsRequired(true);
+                b.Property(x => x.DisplayName).HasMaxLength(100).IsRequired(true);
+                b.HasOne(f => f.CateogryAccount).WithMany(x=>x.CategoriesImages).HasForeignKey(f => f.CategoryId).OnDelete(DeleteBehavior.Restrict).IsRequired(true);
+            });
+
         }
     }
 }
