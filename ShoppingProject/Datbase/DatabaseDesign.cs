@@ -13,6 +13,9 @@ namespace ShoppingProject.Datbase
         public DbSet<UserAccountModels> UserAccounts { get; set; }
         public DbSet<CategoriesModels> CategoriesModels { get; set; }
         public DbSet<CategoriesImages> CategoriesImages { get; set; }
+        //public DbSet<ProductModels> ProductModels{ get; set; }
+        //public DbSet<ProductImages> ProductImages{ get; set; }
+        //public DbSet<ProductReviews> ProductReviews{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder mb)
         {
@@ -29,6 +32,7 @@ namespace ShoppingProject.Datbase
                 b.Property(x=> x.DateOfBirth).IsRequired(false);
                 b.Property(x=> x.RoleId).IsRequired(true).HasDefaultValue(2); // 1 Admin // 2 User
                 b.Property(x=> x.IsActive).IsRequired(true).HasDefaultValue(true);
+                b.Property(x=> x.IsDelete).IsRequired(true).HasDefaultValue(false);
                 b.Property(x=> x.CreationTime).IsRequired(true);
                 b.Property(x=> x.FullName).HasMaxLength(100).IsRequired(true);
                 b.HasOne(f => f.ModifireUserAccout).WithMany().HasForeignKey(f => f.ModifierUserId).OnDelete(DeleteBehavior.Restrict);
@@ -40,6 +44,7 @@ namespace ShoppingProject.Datbase
                 b.HasKey(x => x.Id).HasAnnotation("SqlServer:Identity", "1, 1");
                 b.Property(x => x.CategoryName).HasMaxLength(100).IsRequired(true);
                 b.Property(x => x.IsActive).IsRequired(true).HasDefaultValue(true);
+                b.Property(x=> x.IsDelete).IsRequired(true).HasDefaultValue(false);
                 b.Property(x => x.CreationTime).IsRequired(true);
                 b.HasOne(f => f.ModifireUserAccout).WithMany().HasForeignKey(f => f.ModifierUserId).OnDelete(DeleteBehavior.Restrict).IsRequired(false);
                 b.HasOne(f => f.CreatorUserAccout).WithMany().HasForeignKey(f => f.CreatorUserId).OnDelete(DeleteBehavior.Restrict).IsRequired(true);

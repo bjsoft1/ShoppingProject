@@ -6,6 +6,7 @@ namespace ShoppingProject.Models
     {
         public int Id { get; set; }
         public bool IsActive { get; set; }
+        public bool IsDelete { get; set; }
         public DateTime CreationTime { get; set; }
         public DateTime? LastModificationTime { get; set; }
         public int? ModifierUserId { get; set; }
